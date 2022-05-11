@@ -5,7 +5,7 @@ const authController = require('../controllers/authController');
 
 const router = express.Router();
 
-router.use(viewsController.alert);
+router.use(viewsController.alerts);
 
 router.get(
   '/',
