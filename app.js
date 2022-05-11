@@ -117,7 +117,6 @@ app.post(
   express.raw({ type: 'application/json' }),
   bookingController.webhookCheckout
 );
-console.log('Hello');
 
 //Body parser, reading from data body into req.body
 app.use(express.json({ limit: '10kb' })); //limit 10kb json data body
