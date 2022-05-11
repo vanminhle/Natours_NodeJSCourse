@@ -18,7 +18,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
     success_url: `${req.protocol}://${req.get('host')}/my-tours`,
     cancel_url: `${req.protocol}://${req.get('host')}/tour/${tour.slug}`, //tour_url
     customer_email: req.user.email,
-    client_reference_id: req.params.tourid,
+    client_reference_id: req.params.tourId,
     line_items: [
       {
         name: `${tour.name} Tour`,
@@ -62,6 +62,7 @@ const createBookingCheckout = async (session) => {
 //WHEN PAYMENT SUCCESSFUL
 exports.webhookCheckout = (req, res, next) => {
   const signature = req.headers['stripe-signature'];
+
   let event;
   try {
     event = stripe.webhooks.constructEvent(
@@ -75,6 +76,7 @@ exports.webhookCheckout = (req, res, next) => {
 
   if (event.type === 'checkout.session.completed')
     createBookingCheckout(event.data.object);
+
   res.status(200).json({ received: true });
 };
 
