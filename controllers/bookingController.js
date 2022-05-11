@@ -19,18 +19,14 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
     cancel_url: `${req.protocol}://${req.get('host')}/tour/${tour.slug}`, //tour_url
     customer_email: req.user.email,
     client_reference_id: req.params.tourId,
-    line_items: [
-      {
-        name: `${tour.name} Tour`,
-        description: tour.summary,
-        images: [
-          `${req.protocol}://${req.get('host')}/img/tours/${tour.imageCover}`,
-        ], //image from natours web page
-        amount: tour.price * 100, //*100 beacuse that amount is calculated by cents (1$ = 100 cents)
-        currency: 'usd',
-        quantity: 1,
-      },
-    ],
+    tour_name: `${tour.name} Tour`,
+    description: tour.summary,
+    images: [
+      `${req.protocol}://${req.get('host')}/img/tours/${tour.imageCover}`,
+    ], //image from natours web page
+    amount: tour.price * 100, //*100 beacuse that amount is calculated by cents (1$ = 100 cents)
+    currency: 'usd',
+    quantity: 1,
   });
 
   //3) Sent to client, create session as respone
